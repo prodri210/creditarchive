@@ -1,0 +1,21 @@
+{
+  "logoAlt": "Logo",
+  "dateLabel": "Fecha:",
+  "timeLabel": "Hora:",
+  "personalInfoTitle": "INFORMACIÓN PERSONAL",
+  "nameLabel": "Nombre y Apellidos",
+  "juridicStatusLabel": "Estado Jurídico",
+  "countryLabel": "País",
+  "cityLabel": "Ciudad",
+  "receiveInstituteLabel": "Institución Receptora del Crédito",
+  "creditInfoTitle": "INFORMACIÓN DEL CRÉDITO",
+  "requestDateLabel": "Fecha de la Solicitud",
+  "creditAmountLabel": "Monto del Crédito",
+  "creditMotifLabel": "Motivo del Crédito",
+  "repaymentTimeLabel": "Tiempo de Reembolso",
+  "previousButton": "Anterior",
+  "nextButton": "Siguiente",
+  "submitButton": "Enviar Mi Información",
+  "selectCountryPlaceholder": "-- Seleccione un país --",
+  "receiveInstitutePlaceholder": "Banco, Western Union u otra"
+}

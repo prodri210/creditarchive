@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "@/public/photo_2024-12-13_14-23-38.jpg";
 import Image from "next/image";
+import LanguageSelector from "./languageSelector";
 
 const Formulaire = ({ onSubmit }) => {
   const [dateTime, setDateTime] = useState({
@@ -157,13 +158,15 @@ const Formulaire = ({ onSubmit }) => {
           className="rounded-full"
         />
 
+        <LanguageSelector />
+
         <div className="flex flex-col space-y-2 my-auto">
           <div className="flex items-center">
-            <span className="font-bold text-gray-700 mr-1">Date :</span>
+            <span className="font-bold text-gray-700 mr-1">"Date" :</span>
             <span className="text-gray-900">{dateTime.date}</span>
           </div>
           <div className="flex items-center">
-            <span className="font-bold text-gray-700 mr-1">Heure :</span>
+            <span className="font-bold text-gray-700 mr-1">"Heure" :</span>
             <span className="text-gray-900">{dateTime.time}</span>
           </div>
         </div>

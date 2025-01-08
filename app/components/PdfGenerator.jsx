@@ -131,6 +131,14 @@ const PdfGenerator = ({ formData }) => {
             <Text style={styles.tableCell}>{formData.date_approval}</Text>
             <Text style={styles.tableCell}>{formData.mensual_payment}</Text>
           </View>
+          <View style={[styles.tableRow, styles.tableCellHeader]}>
+            <Text style={styles.tableCell}>Montant du crédit</Text>
+            <Text style={styles.tableCell}>Date du premier remboursement</Text>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCell}>{formData.credit}</Text>
+            <Text style={styles.tableCell}>{formData.first_payment_date}</Text>
+          </View>
         </View>
 
         {/* Informations personnelles */}

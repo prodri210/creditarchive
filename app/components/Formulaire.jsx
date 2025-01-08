@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@/public/photo_2024-12-13_14-23-38.jpg";
 import Image from "next/image";
 
@@ -10,6 +10,9 @@ const Formulaire = ({ onSubmit }) => {
     time: "",
   });
 
+  const [countries, setCountries] = useState([]); // Stocker les pays
+
+  // Date et Heure
   useEffect(() => {
     // Fonction pour mettre à jour la date et l'heure
     const updateDateTime = () => {
@@ -27,6 +30,27 @@ const Formulaire = ({ onSubmit }) => {
 
     // Nettoyage du timer
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch(
+          "https://countriesnow.space/api/v0.1/countries"
+        );
+        const data = await response.json();
+        const countryNames = data.data.map((country) => country.country);
+        console.log(countryNames);
+        setCountries(countryNames.sort());
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des pays:",
+          error.message
+        );
+      }
+    };
+
+    fetchCountries();
   }, []);
 
   const [formData, setFormData] = useState({
@@ -190,14 +214,20 @@ const Formulaire = ({ onSubmit }) => {
                     <label className="block text-sm font-medium mb-1">
                       Pays <span className="text-red-500 text-lg">*</span>
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="country"
                       value={formData.country}
                       onChange={handleChange}
                       className="w-full border px-2 py-1 rounded"
-                      required={true}
-                    />
+                      required
+                    >
+                      <option value="">-- Sélectionner un pays --</option>
+                      {countries.map((country) => (
+                        <option key={country} value={country}>
+                          {country}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="flex-1">
@@ -252,6 +282,7 @@ const Formulaire = ({ onSubmit }) => {
                       onChange={handleChange}
                       className="w-full border px-2 py-1 rounded"
                       required={true}
+                      min={new Date().toISOString().split("T")[0]}
                     />
                   </div>
 

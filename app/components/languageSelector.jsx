@@ -1,12 +1,15 @@
-import { useTranslation } from "next-i18next";
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { FaGlobe } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Définir les langues disponibles
   const languages = [
     { code: "de", label: "Deutsch" },
     { code: "en", label: "English" },
@@ -16,7 +19,7 @@ const LanguageSelector = () => {
   ];
 
   const currentLanguage = languages.find(
-    (language) => language.code === i18n.language
+    (lang) => lang.code === i18n.language
   ) || { code: "en", label: "English" };
 
   // Fermer le dropdown si l'utilisateur clique en dehors
@@ -36,7 +39,7 @@ const LanguageSelector = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleLanguageChange = (language) => {
-    i18n.changeLanguage(language.code);
+    i18n.changeLanguage(language.code); // Changer la langue via i18next
     setIsDropdownOpen(false);
   };
 
@@ -44,7 +47,7 @@ const LanguageSelector = () => {
     <div className="relative ml-4 cursor-pointer" ref={dropdownRef}>
       <div onClick={toggleDropdown} className="flex items-center">
         <FaGlobe size={24} className="text-blue-500" />
-        <span>{currentLanguage.label}</span>
+        <span className="ml-2">{currentLanguage.label}</span>
       </div>
       {isDropdownOpen && (
         <div className="absolute mt-2 bg-white border border-gray-300 rounded shadow-lg z-10">
@@ -52,7 +55,9 @@ const LanguageSelector = () => {
             <div
               key={language.code}
               onClick={() => handleLanguageChange(language)}
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
+                language.code === i18n.language ? "font-bold" : ""
+              }`}
             >
               {language.label}
             </div>

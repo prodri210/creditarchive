@@ -1,7 +1,7 @@
 {
   "logoAlt": "Logo",
-  "dateLabel": "Datum:",
-  "timeLabel": "Zeit:",
+  "dateLabel": "Datum",
+  "timeLabel": "Zeit",
   "personalInfoTitle": "PERSÖNLICHE INFORMATIONEN",
   "nameLabel": "Name & Nachname",
   "juridicStatusLabel": "Rechtsstatus",

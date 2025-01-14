@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react";
 import logo from "@/public/photo_2024-12-13_14-23-38.jpg";
 import Image from "next/image";
 import LanguageSelector from "./languageSelector";
+import { useTranslation } from "react-i18next";
 
 const Formulaire = ({ onSubmit }) => {
+  const { t } = useTranslation("common");
+
   const [dateTime, setDateTime] = useState({
     date: "",
     time: "",
@@ -152,7 +155,7 @@ const Formulaire = ({ onSubmit }) => {
       <div className="flex max-w-6xl justify-between mx-auto mb-5">
         <Image
           src={logo}
-          alt="Logo"
+          alt={t("logoAlt")}
           width={100}
           height={100}
           className="rounded-full"
@@ -162,11 +165,15 @@ const Formulaire = ({ onSubmit }) => {
 
         <div className="flex flex-col space-y-2 my-auto">
           <div className="flex items-center">
-            <span className="font-bold text-gray-700 mr-1">"Date" :</span>
+            <span className="font-bold text-gray-700 mr-1">
+              {t("dateLabel")} :
+            </span>
             <span className="text-gray-900">{dateTime.date}</span>
           </div>
           <div className="flex items-center">
-            <span className="font-bold text-gray-700 mr-1">"Heure" :</span>
+            <span className="font-bold text-gray-700 mr-1">
+              {t("timeLabel")} :
+            </span>
             <span className="text-gray-900">{dateTime.time}</span>
           </div>
         </div>

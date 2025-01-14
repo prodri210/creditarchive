@@ -1,9 +1,11 @@
 "use client";
 
+import { appWithTranslation } from "next-i18next";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
 import Formulaire from "@/app/components/Formulaire";
 import PdfGenerator from "@/app/components/PdfGenerator";
 import { useState } from "react";
+import i18n from "@/app/i18n";
 
 const Home = () => {
   const [formData, setFormData] = useState(null);
@@ -40,4 +42,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default appWithTranslation(Home);

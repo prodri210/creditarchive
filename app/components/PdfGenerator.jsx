@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Page,
   Text,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     backgroundColor: "#eee",
     padding: 5,
-    marginBottom: 10,
+    marginBottom: 5,
     color: "#333",
   },
   table: {
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   },
   tableCellHeader: {
     backgroundColor: "#f5f5f5",
-    fontWeight: "bold",
   },
   footer: {
     marginTop: 20,
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
 const PdfGenerator = ({ formData }) => {
   const fetchLogo = async () => {
     const response = await fetch(
-      "http://localhost:3000/photo_2024-12-13_14-23-38.jpg"
+      `${window.location.origin}/photo_2024-12-13_14-23-38.jpg`
     );
     const imageBlob = await response.blob();
     const imageBase64 = await new Promise((resolve) => {
@@ -108,36 +107,46 @@ const PdfGenerator = ({ formData }) => {
         <Text style={styles.sectionTitle}>INFORMATION DOSSIER DE CRÉDIT</Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Dossier Numéro</Text>
-            <Text style={styles.tableCell}>Motif du crédit</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Dossier Numéro :</Text>{" "}
+              {formData.dossierNumero}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Motif du crédit :</Text>{" "}
+              {formData.credit_motif}
+            </Text>
           </View>
           <View style={styles.tableRow}>
-            <Text style={styles.tableCell}>{formData.dossierNumero}</Text>
-            <Text style={styles.tableCell}>{formData.credit_motif}</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Date de la demande :</Text>{" "}
+              {formData.request_date}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Mois de remboursement :</Text>{" "}
+              {formData.remboursement}
+            </Text>
           </View>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Date de la demande</Text>
-            <Text style={styles.tableCell}>Mois de remboursement</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Date de l'approbation :</Text>{" "}
+              {formData.date_approval}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Remboursement mensuel :</Text>{" "}
+              {formData.mensual_payment}
+            </Text>
           </View>
           <View style={styles.tableRow}>
-            <Text style={styles.tableCell}>{formData.request_date}</Text>
-            <Text style={styles.tableCell}>{formData.remboursement}</Text>
-          </View>
-          <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Date de l'approbation</Text>
-            <Text style={styles.tableCell}>Remboursement mensuel</Text>
-          </View>
-          <View style={styles.tableRow}>
-            <Text style={styles.tableCell}>{formData.date_approval}</Text>
-            <Text style={styles.tableCell}>{formData.mensual_payment}</Text>
-          </View>
-          <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Montant du crédit</Text>
-            <Text style={styles.tableCell}>Date du premier remboursement</Text>
-          </View>
-          <View style={styles.tableRow}>
-            <Text style={styles.tableCell}>{formData.credit}</Text>
-            <Text style={styles.tableCell}>{formData.first_payment_date}</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Montant du crédit :</Text>{" "}
+              {formData.credit}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>
+                Date du premier remboursement :
+              </Text>{" "}
+              {formData.first_payment_date}
+            </Text>
           </View>
         </View>
 
@@ -145,20 +154,43 @@ const PdfGenerator = ({ formData }) => {
         <Text style={styles.sectionTitle}>INFORMATION PERSONNELLE</Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Nom</Text>
-            <Text style={styles.tableCell}>Institution</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Nom :</Text> {formData.name}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>
+                Institution de réception du crédit :
+              </Text>{" "}
+              {formData.receive_institute}
+            </Text>
           </View>
           <View style={styles.tableRow}>
-            <Text style={styles.tableCell}>{formData.name}</Text>
-            <Text style={styles.tableCell}>{formData.receive_institute}</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Ville :</Text> {formData.city}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Critère d'éligibilité :</Text>{" "}
+              {formData.eligibility}
+            </Text>
           </View>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Ville</Text>
-            <Text style={styles.tableCell}>Pays</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Pays :</Text> {formData.country}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Statut du dossier :</Text>{" "}
+              {formData.dossier_status}
+            </Text>
           </View>
           <View style={styles.tableRow}>
-            <Text style={styles.tableCell}>{formData.city}</Text>
-            <Text style={styles.tableCell}>{formData.country}</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Statut Juridique :</Text>{" "}
+              {formData.juridic_status}
+            </Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Statut du décaissement :</Text>{" "}
+              {formData.decaissement_status}
+            </Text>
           </View>
         </View>
 
@@ -166,12 +198,16 @@ const PdfGenerator = ({ formData }) => {
         <Text style={styles.sectionTitle}>FRAIS ADMINISTRATIFS ET FISCAUX</Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
-            <Text style={styles.tableCell}>Taxe sur dossier</Text>
-            <Text style={styles.tableCell}>Statut de la taxe</Text>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Taxe sur dossier :</Text>
+            </Text>
+            <Text style={styles.tableCell}>{formData.taxe_status}</Text>
           </View>
           <View style={styles.tableRow}>
+            <Text style={styles.tableCell}>
+              <Text style={{ fontWeight: 700 }}>Statut de la taxe :</Text>
+            </Text>
             <Text style={styles.tableCell}>{formData.taxe}</Text>
-            <Text style={styles.tableCell}>{formData.taxe_status}</Text>
           </View>
         </View>
 
@@ -180,10 +216,27 @@ const PdfGenerator = ({ formData }) => {
           * Le présent document fait valoir à titre de droit l’approbation de la
           demande de crédit du dossier de crédit ci-dessus.
           {"\n\n"}
-          Décision du Conseil Administratif: Le dossier de crédit{" "}
-          {formData.dossierNumero} a été approuvé sous la juridiction du conseil
-          administratif. Vous êtes prié de contacter l’agent responsable pour
-          finaliser les procédures nécessaires.
+          <Text style={{ fontWeight: "bold", color: "#000" }}>
+            Décision du Conseil Administratif
+          </Text>
+          {"\n"}
+          Le dossier de crédit {formData.dossierNumero} a légalement été
+          approuvé sous la juridiction du conseil administratif du groupe de
+          financement Finanzas Investment. Le statut actuel de ce dossier
+          nécessite l’obligation de s’acquitter de la taxe sur dossier de crédit
+          selon l’article 47 du code d’octroi de crédit entre particulier afin
+          que soit pris en charge par la cellule comptable du transfert de la
+          valeur au moyen de réception demandé par l’emprunteur.
+          {"\n\n"}
+          <Text style={{ fontWeight: "bold", color: "#000" }}>
+            Recommandation à suivre par le client
+          </Text>
+          {"\n"}
+          Vous êtes priez de communiquez avec l’agent en charge de votre dossier
+          de crédit afin que vous soit expliqués les dispositions à prendre pour
+          le paiement de la taxe de votre dossier de crédit dans les plus brefs
+          délais. Il sera suivi du décaissement de votre crédit après
+          confirmation de paiement présenté à la cellule comptable
         </Text>
       </Page>
     </Document>

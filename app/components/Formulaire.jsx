@@ -47,10 +47,7 @@ const Formulaire = ({ onSubmit }) => {
         console.log(countryNames);
         setCountries(countryNames.sort());
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des pays:",
-          error.message
-        );
+        console.error(t("receiveCountryErrorText"), error.message);
       }
     };
 
@@ -60,7 +57,7 @@ const Formulaire = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     dossierNumero: "", // Numéro de dossier
     name: "", // Nom & Prénoms
-    juridic_status: "Emprunteur", // Statut juridique (fixé par défaut)
+    juridic_status: t("juridicStatus"), // Statut juridique (fixé par défaut)
     country: "", // Pays
     city: "", // Ville
     receive_institute: "", // Institution de réception du crédit
@@ -71,12 +68,66 @@ const Formulaire = ({ onSubmit }) => {
     date_approval: "", // Date d'approbation
     mensual_payment: "", // Remboursement mensuel
     first_payment_date: "", // Date du premier remboursement
-    eligibility: "Excellent", // Critère d'éligibilité (fixé par défaut)
-    dossier_status: "Approuvé", // Statut du dossier (fixé par défaut)
-    decaissement_status: "En attente", // Statut du décaissement (fixé par défaut)
+    eligibility: t("eligibility"), // Critère d'éligibilité (fixé par défaut)
+    dossier_status: t("dossier_status"), // Statut du dossier (fixé par défaut)
+    decaissement_status: t("decaissement_status"), // Statut du décaissement (fixé par défaut)
     taxe: "", // Taxe sur dossier (fixé par défaut)
-    taxe_status: "Non acquitté", // Statut du paiement de la taxe (fixé par défaut)
+    taxe_status: t("taxe_status"), // Statut du paiement de la taxe (fixé par défaut)
   });
+
+  const [formDataLabel, setFormDataLabel] = useState({
+    dossierNumero: t("formdossierNumeroLabel"),
+    name: t("formnameLabel"),
+    juridic_status: t("formjuridic_statusLabel"),
+    country: t("formcountryLabel"),
+    city: t("formcityLabel"),
+    receive_institute: t("formreceive_instituteLabel"),
+    request_date: t("formrequest_dateLabel"),
+    credit: t("formcreditLabel"),
+    credit_motif: t("formcredit_motifLabel"),
+    remboursement: t("formremboursementLabel"),
+    date_approval: t("formdate_approvalLabel"),
+    mensual_payment: t("formmensual_paymentLabel"),
+    first_payment_date: t("formfirst_payment_dateLabel"),
+    eligibility: t("formeligibilityLabel"),
+    dossier_status: t("formdossier_statusLabel"),
+    decaissement_status: t("formdecaissement_statusLabel"),
+    taxe: t("formtaxeLabel"),
+    taxe_status: t("formtaxe_statusLabel"),
+  });
+
+  useEffect(() => {
+    // Mettre à jour les champs traduits lorsque la langue change
+    setFormData((prev) => ({
+      ...prev,
+      juridic_status: t("juridicStatus"),
+      eligibility: t("eligibility"),
+      dossier_status: t("dossier_status"),
+      decaissement_status: t("decaissement_status"),
+      taxe_status: t("taxe_status"),
+    }));
+
+    setFormDataLabel({
+      dossierNumero: t("formdossierNumeroLabel"),
+      name: t("formnameLabel"),
+      juridic_status: t("formjuridic_statusLabel"),
+      country: t("formcountryLabel"),
+      city: t("formcityLabel"),
+      receive_institute: t("formreceive_instituteLabel"),
+      request_date: t("formrequest_dateLabel"),
+      credit: t("formcreditLabel"),
+      credit_motif: t("formcredit_motifLabel"),
+      remboursement: t("formremboursementLabel"),
+      date_approval: t("formdate_approvalLabel"),
+      mensual_payment: t("formmensual_paymentLabel"),
+      first_payment_date: t("formfirst_payment_dateLabel"),
+      eligibility: t("formeligibilityLabel"),
+      dossier_status: t("formdossier_statusLabel"),
+      decaissement_status: t("formdecaissement_statusLabel"),
+      taxe: t("formtaxeLabel"),
+      taxe_status: t("formtaxe_statusLabel"),
+    });
+  }, [t]);
 
   const [step, setStep] = useState(1); // Étape actuelle du formulaire
 
@@ -92,7 +143,7 @@ const Formulaire = ({ onSubmit }) => {
       formData.receive_institute
     )
       setStep(step + 1);
-    else alert("Remplissez les champs obligatoires pour continuez !!!");
+    else alert(t("requiredFiled"));
   };
 
   const prevStep = () => {
@@ -147,7 +198,7 @@ const Formulaire = ({ onSubmit }) => {
       taxe,
     };
 
-    onSubmit(completedData); // Envoie les données une fois terminé
+    onSubmit(completedData, formDataLabel); // Envoie les données une fois terminé
   };
 
   return (
@@ -184,14 +235,14 @@ const Formulaire = ({ onSubmit }) => {
           {step === 1 && (
             <>
               <h1 className="text-2xl text-center font-bold mb-4">
-                INFORMATIONS PERSONNELLES
+                {t("personalInfoTitle")}
               </h1>
 
               <div className="flex flex-col space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Nom & Prénoms{" "}
+                      {t("nameLabel")}{" "}
                       <span className="text-red-500 text-lg">*</span>
                     </label>
                     <input
@@ -206,7 +257,7 @@ const Formulaire = ({ onSubmit }) => {
 
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Statut Juridique
+                      {t("juridicStatusLabel")}
                     </label>
                     <input
                       type="text"
@@ -222,7 +273,8 @@ const Formulaire = ({ onSubmit }) => {
                 <div className="flex items-center space-x-4">
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Pays <span className="text-red-500 text-lg">*</span>
+                      {t("countryLabel")}{" "}
+                      <span className="text-red-500 text-lg">*</span>
                     </label>
                     <select
                       name="country"
@@ -231,7 +283,7 @@ const Formulaire = ({ onSubmit }) => {
                       className="w-full border px-2 py-1 rounded"
                       required
                     >
-                      <option value="">-- Sélectionner un pays --</option>
+                      <option value="">{t("selectCountryPlaceholder")}</option>
                       {countries.map((country) => (
                         <option key={country} value={country}>
                           {country}
@@ -242,7 +294,7 @@ const Formulaire = ({ onSubmit }) => {
 
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Ville
+                      {t("cityLabel")}
                     </label>
                     <input
                       type="text"
@@ -255,7 +307,7 @@ const Formulaire = ({ onSubmit }) => {
 
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Institution de réception du crédit{" "}
+                      {t("receiveInstituteLabel")}{" "}
                       <span className="text-red-500 text-lg">*</span>
                     </label>
                     <input
@@ -264,7 +316,7 @@ const Formulaire = ({ onSubmit }) => {
                       value={formData.receive_institute}
                       onChange={handleChange}
                       className="w-full border px-2 py-1 rounded"
-                      placeholder="Banque ou western-union ou autre"
+                      placeholder={t("receiveInstitutePlaceholder")}
                       required={true}
                     />
                   </div>
@@ -276,14 +328,14 @@ const Formulaire = ({ onSubmit }) => {
           {step === 2 && (
             <>
               <h1 className="text-2xl text-center font-bold mb-4">
-                INFORMATIONS DU CREDIT
+                {t("creditInfoTitle")}
               </h1>
 
               <div className="flex flex-col space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Date de la demande
+                      {t("requestDateLabel")}
                     </label>
                     <input
                       type="date"
@@ -298,7 +350,7 @@ const Formulaire = ({ onSubmit }) => {
 
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Montant du crédit
+                      {t("creditAmountLabel")} ({t("deviseMontant")})
                     </label>
                     <input
                       type="number"
@@ -316,7 +368,7 @@ const Formulaire = ({ onSubmit }) => {
                 <div className="flex items-center space-x-4">
                   <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">
-                      Motif du crédit
+                      {t("creditMotifLabel")}
                     </label>
                     <textarea
                       name="credit_motif"
@@ -328,7 +380,7 @@ const Formulaire = ({ onSubmit }) => {
                   </div>
                   <div className="flex-3">
                     <label className="block text-sm font-medium mb-1">
-                      Temps de remboursement
+                      {t("repaymentTimeLabel")}
                     </label>
                     <select
                       name="remboursement"
@@ -342,7 +394,7 @@ const Formulaire = ({ onSubmit }) => {
                         120,
                       ].map((value) => (
                         <option key={value} value={value}>
-                          {value} mois
+                          {value} {t("monthLabel")}
                         </option>
                       ))}
                     </select>
@@ -359,7 +411,7 @@ const Formulaire = ({ onSubmit }) => {
                 onClick={prevStep}
                 className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
               >
-                Précédent
+                {t("previousButton")}
               </button>
             )}
             {step < 2 && (
@@ -368,7 +420,7 @@ const Formulaire = ({ onSubmit }) => {
                 onClick={nextStep}
                 className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
               >
-                Suivant
+                {t("nextButton")}
               </button>
             )}
             {step === 2 && (
@@ -376,7 +428,7 @@ const Formulaire = ({ onSubmit }) => {
                 type="submit"
                 className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
               >
-                Soumettre mes informations
+                {t("submitButton")}
               </button>
             )}
           </div>

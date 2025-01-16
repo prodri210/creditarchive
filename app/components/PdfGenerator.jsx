@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Page,
   Text,
@@ -70,6 +71,8 @@ const styles = StyleSheet.create({
 
 // Composant PDF
 const PdfGenerator = ({ formData }) => {
+  const { t } = useTranslation("common");
+
   const fetchLogo = async () => {
     const response = await fetch(
       `${window.location.origin}/photo_2024-12-13_14-23-38.jpg`
@@ -95,55 +98,71 @@ const PdfGenerator = ({ formData }) => {
         <View style={styles.header}>
           <Image src={fetchLogo} style={{ width: "80px", height: "80px" }} />
           <View style={styles.dateTime}>
-            <Text>Date : {dateH}</Text>
-            <Text>Heure : {timeH}</Text>
+            <Text>
+              {t("dateLabel")} : {dateH}
+            </Text>
+            <Text>
+              {t("timeLabel")} : {timeH}
+            </Text>
           </View>
         </View>
 
         {/* Titre */}
-        <Text style={styles.title}>APPROBATION DU DOSSIER DE CRÉDIT</Text>
+        <Text style={styles.title}>{t("approvment")}</Text>
 
         {/* Informations sur le dossier */}
-        <Text style={styles.sectionTitle}>INFORMATION DOSSIER DE CRÉDIT</Text>
+        <Text style={styles.sectionTitle}>{t("infoCredit")}</Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Dossier Numéro :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formdossierNumeroLabel")} :
+              </Text>{" "}
               {formData.dossierNumero}
             </Text>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Motif du crédit :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formcredit_motifLabel")} :
+              </Text>{" "}
               {formData.credit_motif}
             </Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Date de la demande :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formrequest_dateLabel")} :
+              </Text>{" "}
               {formData.request_date}
             </Text>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Mois de remboursement :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("rembouresementMonth")} :
+              </Text>{" "}
               {formData.remboursement}
             </Text>
           </View>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Date de l'approbation :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formdate_approvalLabel")} :
+              </Text>{" "}
               {formData.date_approval}
             </Text>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Remboursement mensuel :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formmensual_paymentLabel")} :
+              </Text>{" "}
               {formData.mensual_payment}
             </Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Montant du crédit :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>{t("formcreditLabel")} :</Text>{" "}
               {formData.credit}
             </Text>
             <Text style={styles.tableCell}>
               <Text style={{ fontWeight: 700 }}>
-                Date du premier remboursement :
+                {t("formfirst_payment_dateLabel")} :
               </Text>{" "}
               {formData.first_payment_date}
             </Text>
@@ -151,61 +170,74 @@ const PdfGenerator = ({ formData }) => {
         </View>
 
         {/* Informations personnelles */}
-        <Text style={styles.sectionTitle}>INFORMATION PERSONNELLE</Text>
+        <Text style={styles.sectionTitle}>{t("personalInfoTitle")}</Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Nom :</Text> {formData.name}
+              <Text style={{ fontWeight: 700 }}>{t("formnameLabel")} :</Text>{" "}
+              {formData.name}
             </Text>
             <Text style={styles.tableCell}>
               <Text style={{ fontWeight: 700 }}>
-                Institution de réception du crédit :
+                {t("formreceive_instituteLabel")} :
               </Text>{" "}
               {formData.receive_institute}
             </Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Ville :</Text> {formData.city}
+              <Text style={{ fontWeight: 700 }}>{t("formcityLabel")} :</Text>{" "}
+              {formData.city}
             </Text>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Critère d'éligibilité :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formeligibilityLabel")} :
+              </Text>{" "}
               {formData.eligibility}
             </Text>
           </View>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Pays :</Text> {formData.country}
+              <Text style={{ fontWeight: 700 }}>{t("formcountryLabel")} :</Text>{" "}
+              {formData.country}
             </Text>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Statut du dossier :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formdossier_statusLabel")} :
+              </Text>{" "}
               {formData.dossier_status}
             </Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Statut Juridique :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formjuridic_statusLabel")} :
+              </Text>{" "}
               {formData.juridic_status}
             </Text>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Statut du décaissement :</Text>{" "}
+              <Text style={{ fontWeight: 700 }}>
+                {t("formdecaissement_statusLabel")} :
+              </Text>{" "}
               {formData.decaissement_status}
             </Text>
           </View>
         </View>
 
         {/* Frais administratifs */}
-        <Text style={styles.sectionTitle}>FRAIS ADMINISTRATIFS ET FISCAUX</Text>
+        <Text style={styles.sectionTitle}>{t("adminFiscaux")}</Text>
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableCellHeader]}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Taxe sur dossier :</Text>
+              <Text style={{ fontWeight: 700 }}>{t("formtaxeLabel")} :</Text>
             </Text>
             <Text style={styles.tableCell}>{formData.taxe_status}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCell}>
-              <Text style={{ fontWeight: 700 }}>Statut de la taxe :</Text>
+              <Text style={{ fontWeight: 700 }}>
+                {t("formtaxe_statusLabel")} :
+              </Text>
             </Text>
             <Text style={styles.tableCell}>{formData.taxe}</Text>
           </View>
@@ -213,30 +245,19 @@ const PdfGenerator = ({ formData }) => {
 
         {/* Texte en bas */}
         <Text style={styles.footer}>
-          * Le présent document fait valoir à titre de droit l’approbation de la
-          demande de crédit du dossier de crédit ci-dessus.
+          * {t("droitDoc")}
           {"\n\n"}
           <Text style={{ fontWeight: "bold", color: "#000" }}>
-            Décision du Conseil Administratif
+            {t("decisionConseil")}
           </Text>
           {"\n"}
-          Le dossier de crédit {formData.dossierNumero} a légalement été
-          approuvé sous la juridiction du conseil administratif du groupe de
-          financement Finanzas Investment. Le statut actuel de ce dossier
-          nécessite l’obligation de s’acquitter de la taxe sur dossier de crédit
-          selon l’article 47 du code d’octroi de crédit entre particulier afin
-          que soit pris en charge par la cellule comptable du transfert de la
-          valeur au moyen de réception demandé par l’emprunteur.
+          {t("dossier")} {formData.dossierNumero} {t("decisionText")}
           {"\n\n"}
           <Text style={{ fontWeight: "bold", color: "#000" }}>
-            Recommandation à suivre par le client
+            {t("recommendation")}
           </Text>
           {"\n"}
-          Vous êtes priez de communiquez avec l’agent en charge de votre dossier
-          de crédit afin que vous soit expliqués les dispositions à prendre pour
-          le paiement de la taxe de votre dossier de crédit dans les plus brefs
-          délais. Il sera suivi du décaissement de votre crédit après
-          confirmation de paiement présenté à la cellule comptable
+          {t("recommendationText")}
         </Text>
       </Page>
     </Document>

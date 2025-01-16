@@ -9,11 +9,13 @@ import i18n from "@/app/i18n";
 
 const Home = () => {
   const [formData, setFormData] = useState(null);
+  const [formDataLabel, setFormDataLabel] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [confirmData, setConfirmData] = useState(false);
 
-  const handleFormSubmit = (data) => {
+  const handleFormSubmit = (data, dataLabel) => {
     setFormData(data);
+    setFormDataLabel(dataLabel);
     setShowModal(true);
   };
 
@@ -33,6 +35,7 @@ const Home = () => {
       {showModal && (
         <ConfirmationModal
           formData={formData}
+          formDataLabel={formDataLabel}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
         />
